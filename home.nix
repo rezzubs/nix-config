@@ -9,6 +9,10 @@
     steam
   ];
 
+  wayland.windowManager.hyprland = {
+    # enable = true;
+  };
+
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
