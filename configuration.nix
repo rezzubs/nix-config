@@ -5,6 +5,8 @@
       ./hardware-configuration.nix
     ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Boot
   boot = {
     loader = {
@@ -70,6 +72,8 @@
     du-dust
     btop
 
+    home-manager
+
     brave
   ];
 
@@ -85,13 +89,20 @@
 
   users.defaultUserShell = pkgs.zsh;
 
-  environment.shellAliases = {
-    cat = "bat";
-    ls = "exa";
-    lsl = "ls -l";
-    lsa = "ls -a";
-    lsla = "ls -la";
-    nv = "nvim";
+  environment = {
+    shellAliases = {
+      cat = "bat";
+      ls = "exa";
+      lsl = "ls -l";
+      lsa = "ls -a";
+      lsla = "ls -la";
+      nv = "nvim";
+    };
+    
+    variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
   };
 
   # Fonts
