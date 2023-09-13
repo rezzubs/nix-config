@@ -39,6 +39,17 @@
     jack.enable = true;
   };
 
+  services.xserver = {
+    enable = true;
+    displayManager = {
+      sddm.enable = true;
+      defaultSession = "plasmawayland";
+    };
+    desktopManager.plasma5.enable = true;
+  };
+  # GTK themes are not applied in Wayland applications
+  programs.dconf.enable = true;
+
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
@@ -71,6 +82,10 @@
     neofetch
     du-dust
     btop
+
+    gcc
+    rustup
+    ghc
 
     home-manager
 
