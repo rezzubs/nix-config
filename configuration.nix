@@ -42,14 +42,12 @@
   services.xserver = {
     enable = true;
     displayManager = {
-      sddm.enable = true;
-      defaultSession = "plasmawayland";
+      gdm.enable = true;
+      defaultSession = "gnome";
     };
-    desktopManager.plasma5.enable = true;
+    desktopManager.gnome.enable = true;
   };
-  # GTK themes are not applied in Wayland applications
-  programs.dconf.enable = true;
-
+  
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
@@ -66,10 +64,12 @@
   nix.gc.dates = "weekly";
   nix.gc.options = "--delete-older-than 7d";
 
-  
   # Packages
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    gnomeExtensions.forge
+    gnomeExtensions.gsconnect
+
     neovim
     git
     wl-clipboard
@@ -88,9 +88,9 @@
     ghc
 
     home-manager
-
-    brave
   ];
+
+  programs.firefox.enable = true;
 
   system.autoUpgrade.enable = true;
 
@@ -105,15 +105,6 @@
   users.defaultUserShell = pkgs.zsh;
 
   environment = {
-    shellAliases = {
-      cat = "bat";
-      ls = "exa";
-      lsl = "ls -l";
-      lsa = "ls -a";
-      lsla = "ls -la";
-      nv = "nvim";
-    };
-    
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
