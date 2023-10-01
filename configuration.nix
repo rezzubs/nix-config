@@ -30,6 +30,7 @@
   # Display & Sound
   programs.hyprland.enable = true;
   
+  hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     wireplumber.enable = true;
@@ -47,6 +48,10 @@
     };
     desktopManager.gnome.enable = true;
   };
+
+  services.pcscd.enable = true;
+  
+  services.hardware.openrgb.enable = true;
   
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
@@ -69,6 +74,12 @@
   environment.systemPackages = with pkgs; [
     gnomeExtensions.forge
     gnomeExtensions.gsconnect
+    gnomeExtensions.rounded-corners
+    gnomeExtensions.rounded-window-corners
+    gnomeExtensions.tiling-assistant
+    gnomeExtensions.alphabetical-app-grid
+    gnomeExtensions.blur-my-shell
+    gnome.gnome-tweaks
 
     neovim
     git
@@ -76,7 +87,7 @@
     killall
     zellij
     bat
-    exa
+    eza
     ripgrep
     skim
     neofetch
