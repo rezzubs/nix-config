@@ -22,14 +22,22 @@
 
   # Locale
   time.timeZone = "Europe/Tallinn";
-  i18n.defaultLocale = "en_US.UTF-8";
+  
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    inputMethod = {
+      enabled = "fcitx5";
+      fcitx5.addons = with pkgs; [ fcitx5-mozc ];
+    };
+  };
+  
   console = {
     keyMap = "us";
   };
 
+  services.geoclue2.enable = true;
+
   # Display & Sound
-  programs.hyprland.enable = true;
-  
   hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -42,12 +50,23 @@
 
   services.xserver = {
     enable = true;
-    displayManager = {
-      gdm.enable = true;
-      defaultSession = "gnome";
-    };
+    #displayManager.startx.enable = true;
+    displayManager.gdm.enable = true;
+    #desktopManager.plasma5.enable = true;
     desktopManager.gnome.enable = true;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+    };
+    deviceSection = ''
+      Option "TearFree" "true"
+      Option "VariableRefresh" "true"
+    '';
+    layout = "ee";
+    xkbVariant = "us";
   };
+
+  services.getty.autologinUser = "rezzubs";
 
   services.pcscd.enable = true;
   
@@ -81,6 +100,8 @@
     gnomeExtensions.blur-my-shell
     gnome.gnome-tweaks
 
+    kitty
+    
     neovim
     git
     wl-clipboard
@@ -94,16 +115,21 @@
     du-dust
     btop
 
+    brave
+
     gcc
     rustup
     ghc
 
     home-manager
+
+    virt-manager
   ];
 
-  programs.firefox.enable = true;
-
   system.autoUpgrade.enable = true;
+
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
 
   # Shell Stuff
   programs.zsh = {
@@ -119,6 +145,7 @@
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
+      KDEWM = "${pkgs.haskellPackages.xmonad}/bin/xmonad";
     };
   };
 
